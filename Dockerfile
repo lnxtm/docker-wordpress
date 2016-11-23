@@ -31,9 +31,9 @@ RUN echo "[program:nginx]" >> /etc/supervisor/conf.d/supervisord.conf && \
 	echo "command = /usr/sbin/nginx" >> /etc/supervisor/conf.d/supervisord.conf && \
 	echo "user = root" >> /etc/supervisor/conf.d/supervisord.conf && \
 	echo "autostart = true" >> /etc/supervisor/conf.d/supervisord.conf && \
-	rm -rf /etc/nginx/sites-enabled/default
+	rm -rf /etc/nginx
+ADD /conf/nginx /etc/nginx
 RUN mkdir -p /etc/nginx/ssl && mkdir -p /usr/share/nginx/html
-ADD conf/nginx.conf /etc/nginx/nginx.conf
 # php-fpm7.0
 RUN apt-get install -y mysql-client php7.0-fpm php7.0-common php7.0-cli php-apcu \
 	php-mbstring php7.0-mysql php7.0-curl php7.0-gd php7.0-intl php-pear php-imagick \
