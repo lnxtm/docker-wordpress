@@ -64,6 +64,7 @@ setup_nginx_le () {
 
 setup_php_fpm () {
 	sed -i "s|PHP_MEMORY|${PHP_MEMORY}|g" /etc/php/7.0/fpm/php.ini
+	sed -i "s|PHP_MEMORY|${PHP_MEMORY}|g" /etc/php/7.0/cli/php.ini
 	sed -i "s|PHP_MEMORY|${PHP_MEMORY}|g" /etc/php/7.0/fpm/pool.d/pool.conf
 	sed -i "s|PHP_PM_MAX|${PHP_PM_MAX}|g" /etc/php/7.0/fpm/pool.d/pool.conf
 	sed -i "s|PHP_PM_START|${PHP_PM_START}|g" /etc/php/7.0/fpm/pool.d/pool.conf
@@ -72,13 +73,12 @@ setup_php_fpm () {
 }
 
 disable_php_fpm () {
-	supervisorctl stop php-fpm7.0
 	setup_php_fpm
+	sleep 5 && supervisorctl stop php-fpm7.0 &
 }
 ################################################################################################
 # ->
 if [ "$FQDN" = "example.com" ]; then
-	export GIT_PASS=erased
 	mv /localhost /etc/nginx/sites-enabled/
 else
 	if [ "$FPM_ENABLE" = "true" ]; then
@@ -87,8 +87,8 @@ else
 		disable_php_fpm
 	fi
 	setup_code
-	export GIT_PASS=erased
 	setup_nginx_le
 fi
+export GIT_PASS=erased
 # - run
 /usr/bin/supervisord
