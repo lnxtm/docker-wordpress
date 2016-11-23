@@ -49,6 +49,5 @@ RUN	echo "[program:php-fpm7.0]" >> /etc/supervisor/conf.d/supervisord.conf && \
 ADD conf/php.ini /etc/php/7.0/fpm/php.ini
 ADD conf/pool.conf /etc/php/7.0/fpm/pool.d/pool.conf
 ADD conf/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
-ADD conf/fastcgi_params /etc/nginx/fastcgi_params
 # - >
 CMD ["/entrypoint.sh"]
