@@ -45,7 +45,7 @@ RUN	echo "[program:php-fpm7.0]" >> /etc/supervisor/conf.d/supervisord.conf && \
 	echo "user = root" >> /etc/supervisor/conf.d/supervisord.conf && \
 	echo "autostart = true" >> /etc/supervisor/conf.d/supervisord.conf && \
 	rm -rf /etc/php/7.0/fpm/php.ini && rm -rf /etc/php/7.0/fpm/pool.d/* && \
-	rm -rf /etc/php/7.0/fpm/php-fpm.conf && rm -rf /etc/nginx/fastcgi_params
+	rm -rf /etc/php/7.0/fpm/php-fpm.conf
 ADD conf/php.ini /etc/php/7.0/fpm/php.ini
 ADD conf/pool.conf /etc/php/7.0/fpm/pool.d/pool.conf
 ADD conf/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
